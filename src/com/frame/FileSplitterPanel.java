@@ -40,6 +40,7 @@ public class FileSplitterPanel extends JPanel {
 	private static final String OUTPUT_FOLDER_EXIST_ERROR_TITLE = "Output folder error";
 	private static final String SIZE_TEXT_ERROR_TITLE = "Split size format error";
 	private static final String SPLIT_SIZE_ZERO_ERROR_TITLE = "Split size error";
+	private static final String SPLIT_SIZE_NEGATIVE_ERROR_TITLE = "Split size error";
 	private static final String SPLIT_SIZE_BIG_WARNING_TITLE = "Split size warning";
 	private static final String SPLIT_SIZE_SMALL_WARNING_TITLE = "Split size warning";
 
@@ -47,6 +48,7 @@ public class FileSplitterPanel extends JPanel {
 	private static final String OUTPUT_FOLDER_EXIST_ERROR = "Output folder does not exist, error!";
 	private static final String SIZE_TEXT_ERROR = "Split size is not an integer, error!";
 	private static final String SPLIT_SIZE_ZERO_ERROR = "Split size is set to 0, error!";
+	private static final String SPLIT_SIZE_NEGATIVE_ERROR = "Split size is negative, error!";
 	private static final String SPLIT_SIZE_BIG_WARNING = "Split size is set to create files over "
 			+ SPLIT_SIZE_WARNING_THRESHOLD_GB + " GB, do you want to continue?";
 	private static final String SPLIT_SIZE_SMALL_WARNING = "Split size is set to create at least over "
@@ -206,6 +208,12 @@ public class FileSplitterPanel extends JPanel {
 
 			if (splitValue == 0) {
 				JOptionPane.showMessageDialog(null, SPLIT_SIZE_ZERO_ERROR, SPLIT_SIZE_ZERO_ERROR_TITLE,
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (splitValue < 0) {
+				JOptionPane.showMessageDialog(null, SPLIT_SIZE_NEGATIVE_ERROR, SPLIT_SIZE_NEGATIVE_ERROR_TITLE,
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
