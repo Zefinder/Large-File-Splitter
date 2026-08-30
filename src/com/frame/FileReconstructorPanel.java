@@ -26,8 +26,8 @@ public class FileReconstructorPanel extends JPanel {
 	private static final long serialVersionUID = -2483883751717024357L;
 
 	private static final String FIRST_PART_FILE_EXTENSION = ".001";
-	private static final String FIRST_PART_FILE_DESCTIPTION = "First part file (%s)"
-			.formatted(FIRST_PART_FILE_EXTENSION);
+	private static final String FIRST_PART_FILE_DESCTIPTION = String.format("First part file (%s)",
+			FIRST_PART_FILE_EXTENSION);
 
 	private static final String INPUT_FILE_JLABEL_TEXT = "Input part file:";
 	private static final String OUTPUT_FOLDER_JLABEL_TEXT = "Destination folder:";
@@ -107,7 +107,7 @@ public class FileReconstructorPanel extends JPanel {
 		c.fill = GridBagConstraints.NONE;
 		c.gridx++;
 		inputFileButton = new JButton(SELECTION_BUTTON_TEXT);
-		inputFileButton.addActionListener(_ -> {
+		inputFileButton.addActionListener(e -> {
 			String selectedFile = PanelUtils.invokeFileChooser(new FileFilter() {
 
 				@Override
@@ -141,7 +141,7 @@ public class FileReconstructorPanel extends JPanel {
 		c.fill = GridBagConstraints.NONE;
 		c.gridx++;
 		destinationFolderButton = new JButton(SELECTION_BUTTON_TEXT);
-		destinationFolderButton.addActionListener(_ -> {
+		destinationFolderButton.addActionListener(e -> {
 			String selectedFile = PanelUtils.invokeFolderChooser();
 			if (selectedFile != null) {
 				destinationFolderField.setText(selectedFile);
@@ -155,7 +155,7 @@ public class FileReconstructorPanel extends JPanel {
 		c.gridwidth = 3;
 		confirmButton = new JButton(CONFIRM_BUTTON_TEXT);
 
-		confirmButton.addActionListener(_ -> {
+		confirmButton.addActionListener(e -> {
 			// Check input file
 			File inputFile = new File(inputFileField.getText());
 			if (!inputFile.exists()) {
@@ -187,7 +187,7 @@ public class FileReconstructorPanel extends JPanel {
 			Thread reconstructorThread = new Thread(() -> {
 				try {
 					reconstructor.reconstruct();
-				} catch (IOException e) {
+				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, RECONSTRUCT_ERROR, RECONSTRUCT_ERROR_TITLE,
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -238,8 +238,8 @@ public class FileReconstructorPanel extends JPanel {
 
 	private void updateProgressBar(Reconstructor reconstructor, boolean completed) {
 		int processedFileNumber = reconstructor.getProcessedFileNumber();
-		String stringValue = PROGRESS_BAR_TEXT_FORMAT.formatted(reconstructor.getCurrentFileName(), processedFileNumber,
-				progressBar.getMaximum());
+		String stringValue = String.format(PROGRESS_BAR_TEXT_FORMAT, reconstructor.getCurrentFileName(),
+				processedFileNumber, progressBar.getMaximum());
 
 		if (completed) {
 			stringValue += PROGRESS_BAR_COMPLETED_TEXT;

@@ -38,7 +38,7 @@ public class Reconstructor {
 		// him.
 		Pattern pattern = Pattern.compile(sanitizedFileNameWithoutPartExt + EXTENSION_REGEX);
 
-		this.partFiles = parentFolder.listFiles((_, name) -> pattern.matcher(name).matches());
+		this.partFiles = parentFolder.listFiles((dir, name) -> pattern.matcher(name).matches());
 		this.outputFileName = fileNameWithoutPartExt;
 
 		this.currentFileName = "";
@@ -66,11 +66,11 @@ public class Reconstructor {
 	public String getCurrentFileName() {
 		return currentFileName;
 	}
-	
+
 	public int getProcessedFileNumber() {
 		return processedFileNumber;
 	}
-	
+
 	public int getFilesToProcessNumber() {
 		return partFiles.length;
 	}

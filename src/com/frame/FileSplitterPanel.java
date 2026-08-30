@@ -126,7 +126,7 @@ public class FileSplitterPanel extends JPanel {
 		c.fill = GridBagConstraints.NONE;
 		c.gridx++;
 		inputFileButton = new JButton(SELECTION_BUTTON_TEXT);
-		inputFileButton.addActionListener(_ -> {
+		inputFileButton.addActionListener(e -> {
 			String selectedFile = PanelUtils.invokeFileChooser();
 			if (selectedFile != null) {
 				inputFileField.setText(selectedFile);
@@ -149,7 +149,7 @@ public class FileSplitterPanel extends JPanel {
 		c.fill = GridBagConstraints.NONE;
 		c.gridx++;
 		destinationFolderButton = new JButton(SELECTION_BUTTON_TEXT);
-		destinationFolderButton.addActionListener(_ -> {
+		destinationFolderButton.addActionListener(e -> {
 			String selectedFile = PanelUtils.invokeFolderChooser();
 			if (selectedFile != null) {
 				destinationFolderField.setText(selectedFile);
@@ -180,7 +180,7 @@ public class FileSplitterPanel extends JPanel {
 		c.gridwidth = 3;
 		confirmButton = new JButton(CONFIRM_BUTTON_TEXT);
 
-		confirmButton.addActionListener(_ -> {
+		confirmButton.addActionListener(e -> {
 			// Check input file
 			File inputFile = new File(inputFileField.getText());
 			if (!inputFile.exists()) {
@@ -201,7 +201,7 @@ public class FileSplitterPanel extends JPanel {
 			int splitValue;
 			try {
 				splitValue = Integer.valueOf(splitSizeField.getText());
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(null, SIZE_TEXT_ERROR, SIZE_TEXT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -242,7 +242,7 @@ public class FileSplitterPanel extends JPanel {
 			Thread splittingThread = new Thread(() -> {
 				try {
 					splitter.split();
-				} catch (IOException e) {
+				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, SPLIT_ERROR, SPLIT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -296,7 +296,7 @@ public class FileSplitterPanel extends JPanel {
 
 	private void updateProgressBar(Splitter splitter, boolean completed) {
 		int processedFileNumber = splitter.getCreatedFilesNumber();
-		String stringValue = PROGRESS_BAR_TEXT_FORMAT.formatted(splitter.getCurrentCreatedFileName(),
+		String stringValue = String.format(PROGRESS_BAR_TEXT_FORMAT, splitter.getCurrentCreatedFileName(),
 				processedFileNumber, progressBar.getMaximum());
 
 		if (completed) {
